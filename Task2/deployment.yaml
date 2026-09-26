@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scaletest-app
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scaletest-app
+  template:
+    metadata:
+      labels:
+        app: scaletest-app
+    spec:
+      containers:
+        - name: app
+          image: ghcr.io/yandex-practicum/scaletestapp:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "15Mi"
+              cpu: "50m"
+            limits:
+              memory: "30Mi"
+              cpu: "100m"
